@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Word to PDF</title>
+    <style>
+html, body{
+  padding: 0;
+}
+
+nav{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+nav>a{
+  display: block;
+  width: 16.33vw;
+  height: 5vh;
+
+  line-height: 5vh;
+  text-align: center;
+  border: 1px solid black;
+
+  color: black;
+  text-decoration: none;
+}
+
+form{
+  text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50vh;
+    padding: 0 20vw 0 20vw;
+}
+
+label>h3{
+  margin: 10vh 0 0 0;
+}
+
+input[type="email"]{
+    width: 40vw;
+    height: 5vh;
+
+    
+    font-size: 2vh;
+}
+
+input[type="submit"]{
+    margin: 10vh 0 0 0;
+    width: 40vw;
+    height: 5vh;
+    
+    font-size: 2vh;
+}
+
+input[type="file"]{
+    margin: 10vh 0 0 0;
+
+    width: 40vw;
+    
+    font-size: 2vh;
+}
+
+::-webkit-file-upload-button {
+  width: 20vw;
+  margin: 0 1vw 0 0;
+  padding: 1em;
+}
+
+footer{
+  position: absolute;
+  bottom: 0;
+
+  width: 99%;
+}
+
+.footerA{
+  width: 32.82vw;
+}
+</style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="">PDF-Converter</a>
+        <a href="">Features/Help</a>
+        <a href="">FAQ/Problems</a>
+        <a href="">Feedback</a>
+        <a href="">Support Project</a>
+        <a href="">Contact</a>
+      </nav>
+    </header>
+    <form class="fileupload" action="upload" method="post" enctype="multipart/form-data">
+      <h1>DOCX to PDF</h1>
+      <h2>Covert DOCX files(Word) to PDF</h2>
+
+      <label class="fileInput">
+        <input type="file" name="upfile" value="">
+      </label><br>
+
+      <label>
+        <h3>Send to email (optional):</h3><br>
+      <input type="email" name="email" value="">
+      </label><br>
+
+      <label>
+      <input type="submit" />
+      </label><br>
+    </form>
+    <footer>
+      <nav>
+        <a href="">PDF-Converter</a>
+        <a href="">Features/Help</a>
+        <a href="">FAQ/Problems</a>
+        <a href="">Feedback</a>
+        <a href="">Support Project</a>
+        <a href="">Contact</a>
+        <a class="footerA" href="">Data Protection/Security</a>
+        <a class="footerA" href="">Disclaimer</a>
+        <a class="footerA" href="">Contact/Imprint</a>
+      </nav>
+    </footer>
+  </body>
+</html>
