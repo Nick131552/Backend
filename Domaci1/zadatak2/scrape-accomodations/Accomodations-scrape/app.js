@@ -62,9 +62,8 @@ let task = cron.schedule('0 12 * * *', () => {
 task.start();
 
 
-var server = app.listen(process.env.PORT || 3000, function () {
-  var port = server.address().port;
-  console.log("Express is working on port " + port);
+app.listen(3000, (err, data) => {
+  if (!err) console.log("Connected")
 })
 
 process.on("unhandledRejection", err => {
