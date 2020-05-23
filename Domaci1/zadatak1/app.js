@@ -1,10 +1,10 @@
 const express = require('express');
 const upload = require("express-fileupload");
+const libre = require('libreoffice-convert');
 
 const path = require('path');
-const unoconv = require('awesome-unoconv');
 var fs = require('fs');
-//Place your word file in source
+const extend = '.pdf'
 
 var nodemailer = require('nodemailer');
 
@@ -74,14 +74,14 @@ app.post('/upload', function(req, res) {
       const sourceFilePath = path.resolve('./uploads/'+name);
       const outputFilePath = path.resolve('./downloads/'+name.replace(".docx", ".pdf"));
   
-  unoconv
-    .convert(sourceFilePath, outputFilePath)
-    .then(result => {
-      console.log(result); // return outputFilePath
-    })
-    .catch(err => {
-      console.log(err);
-    });
+      const enterPath = fs.readFileSync(sourceFilePath);
+      libre.convert(enterPath, extend, undefined, (err, done) => {
+          if (err) {
+            console.log(`Error converting file: ${err}`);
+          }
+          
+          fs.writeFileSync(outputFilePath, done);
+      });
 
     setTimeout(function(){
       if (req.body.email != ""){
