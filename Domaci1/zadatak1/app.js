@@ -1,6 +1,6 @@
 const express = require('express');
 const upload = require("express-fileupload");
-const libre = require('libreoffice-convert');
+var convertapi = require('convertapi')('03dxuAuxeHmUjVTj');
 
 const path = require('path');
 var fs = require('fs');
@@ -14,7 +14,6 @@ process.env.PASSWORD = "#Poptropica131552";
 
 require('dotenv').config();
 
-console.log(process.env.FOO);
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -57,31 +56,34 @@ app.post('/upload', function(req, res) {
         }
         else {
           console.log("File Uploaded",name);
-          app.use('/'+name.replace(".docx", ".pdf").replace(/\s/g,""), function(req, res) {
+
+          async function convert(){
+
+          
+     
+     await convertapi.convert('pdf', {
+        File: __dirname+"/uploads/"+name
+    }, 'docx').then(function(result) {
+        result.saveFiles(__dirname+"/downloads/");
+    });
+
+
+          app.use('/'+process.env.COUNT, function(req, res) {
             res.sendFile(__dirname+'/downloads/'+name.replace(".docx", ".pdf"));
           })
 
           fs.readFile("./upload1.html", 'utf8', function(err, html1) {
             console.log(html1)
             fs.readFile("./upload2.html", 'utf8', function(err, html2) {
-              res.send(html1+process.env.COUNT+'</h2><p><a download='+name.replace(".docx", ".pdf")+' href="/'+name.replace(".docx", ".pdf").replace(/\s/g,"")+html2)
+              res.send(html1+process.env.COUNT+'</h2><p><a download='+name.replace(".docx", ".pdf")+' href="/'+process.env.COUNT.replace(/\s/g,"")+html2)
             });
         });
 
-    
+    }
+    convert()
         }
       });
-      const sourceFilePath = path.resolve('./uploads/'+name);
-      const outputFilePath = path.resolve('./downloads/'+name.replace(".docx", ".pdf"));
-  
-      const enterPath = fs.readFileSync(sourceFilePath);
-      libre.convert(enterPath, extend, undefined, (err, done) => {
-          if (err) {
-            console.log(`Error converting file: ${err}`);
-          }
-          
-          fs.writeFileSync(outputFilePath, done);
-      });
+    
 
     setTimeout(function(){
       if (req.body.email != ""){
@@ -131,4 +133,3 @@ var server = app.listen(process.env.PORT || 3000, function () {
   var port = server.address().port;
   console.log("Express is working on port " + port);
 }); 
-
